@@ -21,6 +21,7 @@ namespace CadnunsDev.NetIPFinder
         string comandBase = "/C ping -n 1 {0}";
         private List<Computer> _lista;
         private readonly List<Thread> _threads;
+        private List<Computer> _arpList;
 
         public Form1()
         {
@@ -112,7 +113,7 @@ namespace CadnunsDev.NetIPFinder
             output = string.Format(output, ip, resquestPing.Status);
             if (resquestPing.Status == IPStatus.Success)
             {
-                var computer = new Computer { IPAdress = ip };
+                var computer = _arpList.FirstOrDefault(pc => pc.IPAdress == ip) ?? new Computer { IPAdress = ip };
                 try
                 {
                     var host = Dns.GetHostEntry(computer.IPAdress);
@@ -178,6 +179,9 @@ namespace CadnunsDev.NetIPFinder
         private void button1_Click(object sender, EventArgs e)
         {
             //new Thread(InitIpFind).Start(); 
+
+            _arpList = NetWorkUtils.ListComputerByArp();
+
             var thread = new Thread(FindComputersOnMyNetwork);
             _threads.Add(thread);
             thread.Start();

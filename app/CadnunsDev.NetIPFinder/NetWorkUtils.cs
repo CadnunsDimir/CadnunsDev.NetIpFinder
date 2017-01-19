@@ -1,5 +1,8 @@
-﻿using System;
+﻿using CadnunsDev.NetIPFinder.Model;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
@@ -42,6 +45,53 @@ namespace CadnunsDev.NetIPFinder
                 str[i] = macAddr[i].ToString("x2");
 
             return string.Join(":", str);
+        }
+
+        public static List<Computer> ListComputerByArp()
+        {
+            //Process p = new Process();
+            //// Redirect the output stream of the child process.
+            //p.StartInfo.UseShellExecute = false;
+            //p.StartInfo.RedirectStandardOutput = true;
+            //p.
+            //p.Start();
+            //// Do not wait for the child process to exit before
+            //// reading to the end of its redirected stream.
+            //// p.WaitForExit();
+            //// Read the output stream first and then wait.
+            //string output = p.StandardOutput.ReadToEnd();
+            //p.WaitForExit();
+
+            string cmd = "/c arp -a";
+            System.Diagnostics.Process proc = new System.Diagnostics.Process();
+            proc.StartInfo.FileName = "cmd.exe";
+            proc.StartInfo.Arguments = cmd;
+            proc.StartInfo.UseShellExecute = false;
+            proc.StartInfo.RedirectStandardOutput = true;
+
+            proc.Start();
+            string output = proc.StandardOutput.ReadToEnd();
+            proc.WaitForExit();
+
+            var lista = new List<Computer>();
+            using (StringReader reader = new StringReader(output))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    if(!(line.Contains("Interface") || line.Contains("IP")) && line.Length > 30)
+                    {
+                        var ip = line.Substring(2, 15).Trim();
+                        var mac = line.Substring(24, 17);
+                        lista.Add(new Computer
+                        {
+                            IPAdress = ip,
+                            MacAdress = mac
+                        });
+                    }
+                }
+            }
+            return lista;
         }
     }
 }

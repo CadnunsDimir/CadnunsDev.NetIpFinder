@@ -16,6 +16,10 @@ namespace CadnunsDev.NetIPFinder
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Application.ThreadException += (ex,e) =>{
+                var erro = ex as Exception;
+                MessageBox.Show(erro.Message);
+            };
             Application.Run(new Form1());
         }
     }
