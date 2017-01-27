@@ -36,6 +36,7 @@
             this.ipPt3tbox = new System.Windows.Forms.TextBox();
             this.ipPt2tbox = new System.Windows.Forms.TextBox();
             this.ipPt1tbbox = new System.Windows.Forms.TextBox();
+            this.btnPingForm = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -104,11 +105,22 @@
             this.ipPt1tbbox.Size = new System.Drawing.Size(65, 20);
             this.ipPt1tbbox.TabIndex = 7;
             // 
+            // btnPingForm
+            // 
+            this.btnPingForm.Location = new System.Drawing.Point(12, 289);
+            this.btnPingForm.Name = "btnPingForm";
+            this.btnPingForm.Size = new System.Drawing.Size(75, 31);
+            this.btnPingForm.TabIndex = 8;
+            this.btnPingForm.Text = "Ping URL";
+            this.btnPingForm.UseVisualStyleBackColor = true;
+            this.btnPingForm.Click += new System.EventHandler(this.btnPingForm_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(841, 327);
+            this.Controls.Add(this.btnPingForm);
             this.Controls.Add(this.ipPt1tbbox);
             this.Controls.Add(this.ipPt2tbox);
             this.Controls.Add(this.ipPt3tbox);
@@ -136,6 +148,7 @@
         private System.Windows.Forms.TextBox ipPt3tbox;
         private System.Windows.Forms.TextBox ipPt2tbox;
         private System.Windows.Forms.TextBox ipPt1tbbox;
+        private System.Windows.Forms.Button btnPingForm;
     }
 }
 

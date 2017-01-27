@@ -173,7 +173,15 @@ namespace CadnunsDev.NetIPFinder
         private void SecureAction(Action action, Control formControl = null)
         {
             formControl = formControl ?? this;
-            formControl.BeginInvoke((Action)action);
+            try
+            {
+                if (formControl.Visible)
+                    formControl.BeginInvoke((Action)action);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -203,6 +211,11 @@ namespace CadnunsDev.NetIPFinder
                     th.Abort();
                 }
             });
+        }
+
+        private void btnPingForm_Click(object sender, EventArgs e)
+        {
+            new PingForm().ShowDialog();
         }
     }
 }
