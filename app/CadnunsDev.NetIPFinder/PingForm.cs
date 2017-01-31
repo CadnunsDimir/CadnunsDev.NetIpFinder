@@ -31,13 +31,21 @@ namespace CadnunsDev.NetIPFinder
         private void PingingAdress(Ping ping, string host)
         {
             var template = "[{0}] Resposta de {1}: tempo {2} ms";
-            var resquestPing = ping.Send(host);
-            ShowHostAndIp(host,resquestPing.Address);
-            if (resquestPing.Status == IPStatus.Success)
-                SetTimerIsOnline();
-            else
+            try
+            {
+                var resquestPing = ping.Send(host);
+                ShowHostAndIp(host, resquestPing.Address);
+                if (resquestPing.Status == IPStatus.Success)
+                    SetTimerIsOnline();
+                else
+                    SetTimerIsOffline();
+                ShowLog(template.ToFormat(resquestPing.Status, resquestPing.Address, resquestPing.RoundtripTime));
+            }
+            catch (Exception ex)
+            {
                 SetTimerIsOffline();
-            ShowLog(template.ToFormat(resquestPing.Status, resquestPing.Address, resquestPing.RoundtripTime));
+                ShowLog("[{0}] host {1} : {2}".ToFormat(ex.GetType().Name, host,ex.Message));
+            }
         }
 
         private void ShowHostAndIp(string host, IPAddress address)

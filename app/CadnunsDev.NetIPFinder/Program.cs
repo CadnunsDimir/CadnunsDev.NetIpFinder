@@ -17,8 +17,9 @@ namespace CadnunsDev.NetIPFinder
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.ThreadException += (ex,e) =>{
-                var erro = ex as Exception;
-                MessageBox.Show(erro.Message);
+                var erro = e.Exception;
+                var type = ex.GetType().Name;
+                MessageBox.Show("[{0}] {1}".ToFormat(type, erro.Message));
             };
             Application.Run(new Form1());
         }
