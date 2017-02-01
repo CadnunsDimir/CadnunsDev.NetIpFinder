@@ -43,6 +43,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.lbHost = new System.Windows.Forms.Label();
             this.lbIp = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.lbAveragePing = new System.Windows.Forms.Label();
+            this.lbPingMax = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // tboxLog
@@ -185,11 +189,51 @@
             this.lbIp.TabIndex = 14;
             this.lbIp.Text = "- - - - -";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(481, 191);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(54, 13);
+            this.label5.TabIndex = 15;
+            this.label5.Text = "Ping Max:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(481, 204);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(63, 13);
+            this.label7.TabIndex = 16;
+            this.label7.Text = "Ping Media:";
+            // 
+            // lbAveragePing
+            // 
+            this.lbAveragePing.AutoSize = true;
+            this.lbAveragePing.Location = new System.Drawing.Point(551, 204);
+            this.lbAveragePing.Name = "lbAveragePing";
+            this.lbAveragePing.Size = new System.Drawing.Size(32, 13);
+            this.lbAveragePing.TabIndex = 18;
+            this.lbAveragePing.Text = "--- ms";
+            // 
+            // lbPingMax
+            // 
+            this.lbPingMax.AutoSize = true;
+            this.lbPingMax.Location = new System.Drawing.Point(551, 191);
+            this.lbPingMax.Name = "lbPingMax";
+            this.lbPingMax.Size = new System.Drawing.Size(32, 13);
+            this.lbPingMax.TabIndex = 17;
+            this.lbPingMax.Text = "--- ms";
+            // 
             // PingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(694, 261);
+            this.Controls.Add(this.lbAveragePing);
+            this.Controls.Add(this.lbPingMax);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.lbIp);
             this.Controls.Add(this.lbHost);
             this.Controls.Add(this.label4);
@@ -231,5 +275,9 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lbHost;
         private System.Windows.Forms.Label lbIp;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lbAveragePing;
+        private System.Windows.Forms.Label lbPingMax;
     }
 }

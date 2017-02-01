@@ -22,6 +22,8 @@ namespace CadnunsDev.NetIPFinder
         private string _host;
         private Thread _threadPing;
 
+        private List<long> pingTimes = new List<long>();
+
         public PingForm()
         {
             InitializeComponent();            
@@ -36,7 +38,12 @@ namespace CadnunsDev.NetIPFinder
                 var resquestPing = ping.Send(host);
                 ShowHostAndIp(host, resquestPing.Address);
                 if (resquestPing.Status == IPStatus.Success)
+                {
                     SetTimerIsOnline();
+                    pingTimes.Add(resquestPing.RoundtripTime);
+                    showPingInfo();
+                }
+                    
                 else
                     SetTimerIsOffline();
                 ShowLog(template.ToFormat(resquestPing.Status, resquestPing.Address, resquestPing.RoundtripTime));
@@ -46,6 +53,12 @@ namespace CadnunsDev.NetIPFinder
                 SetTimerIsOffline();
                 ShowLog("[{0}] host {1} : {2}".ToFormat(ex.GetType().Name, host,ex.Message));
             }
+        }
+
+        private void showPingInfo()
+        {
+            lbPingMax.Text = "{0} ms".ToFormat(pingTimes.Max());
+            lbAveragePing.Text = "{0:n2} ms".ToFormat(pingTimes.Average());
         }
 
         private void ShowHostAndIp(string host, IPAddress address)
