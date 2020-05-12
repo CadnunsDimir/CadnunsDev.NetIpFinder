@@ -108,26 +108,34 @@ namespace CadnunsDev.NetIPFinder
 
         void PingingAdress(Ping ping, string ip)
         {
-            var resquestPing = ping.Send(ip);
-            var output = "Ip pingado: {0}, Status {1}";
-            output = string.Format(output, ip, resquestPing.Status);
-            if (resquestPing.Status == IPStatus.Success)
+            try
             {
-                var computer = _arpList.FirstOrDefault(pc => pc.IPAdress == ip) ?? new Computer { IPAdress = ip };
-                try
+                var resquestPing = ping.Send(ip);
+                var output = "Ip pingado: {0}, Status {1}";
+                output = string.Format(output, ip, resquestPing.Status);
+                if (resquestPing.Status == IPStatus.Success)
                 {
-                    var host = Dns.GetHostEntry(computer.IPAdress);
-                    computer.HostName = host.HostName;
+                    var computer = _arpList.FirstOrDefault(pc => pc.IPAdress == ip) ?? new Computer { IPAdress = ip };
+                    try
+                    {
+                        var host = Dns.GetHostEntry(computer.IPAdress);
+                        computer.HostName = host.HostName;
 
-                }
-                catch (Exception ex)
-                {
+                    }
+                    catch (Exception ex)
+                    {
 
-                    Notify("Erro ao buscar hostname do ip [" + computer.IPAdress + "]: " + ex.Message);
+                        Notify("Erro ao buscar hostname do ip [" + computer.IPAdress + "]: " + ex.Message);
+                    }
+                    AddItemToListView(computer);
                 }
-                AddItemToListView(computer);
+                Notify(output);
             }
-            Notify(output);
+            catch (Exception ex)
+            {
+
+                Notify("Erro ao buscar hostname do ip [" + ip + "]: " + ex.Message);
+            }
         }
         private void ClearList()
         {
