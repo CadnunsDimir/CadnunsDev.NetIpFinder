@@ -57,8 +57,8 @@ namespace CadnunsDev.NetIPFinder
 
         private void showPingInfo()
         {
-            lbPingMax.Text = "{0} ms".ToFormat(pingTimes.Max());
-            lbAveragePing.Text = "{0:n2} ms".ToFormat(pingTimes.Average());
+            SecureAction(() => lbPingMax.Text = "{0} ms".ToFormat(pingTimes.Max()), lbPingMax);
+            SecureAction(() => lbAveragePing.Text = "{0:n2} ms".ToFormat(pingTimes.Average()), lbAveragePing);
         }
 
         private void ShowHostAndIp(string host, IPAddress address)
@@ -66,7 +66,7 @@ namespace CadnunsDev.NetIPFinder
             SecureAction(() =>
             {
                 lbHost.Text = host;
-                lbIp.Text = address.ToString();
+                lbIp.Text = address != null? address.ToString() : "0.0.0.0";
             });
         }
 
